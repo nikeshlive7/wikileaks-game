@@ -3,54 +3,85 @@
 
 
 
-.canvas{
-
+.canvas {
 	width:600px;
 	height:570px;
 	margin:0 auto;
 	margin-top:50px;
-	background:url(../images/background.png) 0 0 no-repeat;
+    background:url(../images/background.png) 0 0 no-repeat;
 	position:relative;
-	
-	}
-.left-stair{
+}
+.left-stair {
 	left:30px;
 	width:134px;
 	height:28px;
 	position:absolute;
 	top:265px;
-	background:url(../images/stair-l.png)
-	}
-.right-stair{
+	background:url(../images/stair-l.png) 0 0 no-repeat;
+}
+.right-stair {
 	width:136px;
 	height:28px;
 	position:absolute;
 	top:265px;
 	right:29px;
-	background:url(../images/stair-r.png)
-	}
-.up-stair{
+	background:url(../images/stair-r.png) 0 0 no-repeat;
+}
+.up-stair {
 	top:160px;
 	left:192px;
 	width:220px;
 	height:28px;
 	position:absolute;
-	background:url(../images/stait-up-down.png);
-	}
-.down-star{
+	background:url(../images/stait-up-down.png) 0 0 no-repeat;
+}
+.down-star {
 	top:370px;
 	left:192px;
 	width:220px;
 	height:28px;
 	position:absolute;
-	background:url(../images/stait-up-down.png);
-	}
-.player{
+	background:url(../images/stait-up-down.png) 0 0 no-repeat;
+}
+
+.stair-bottom-left {
+	left:0px;
+	top:490px;
+	width:180px;
+	height:70px;
+	position:absolute;
+	background:url(../images/stair-bottom-l-r.png) 0 0 no-repeat;
+}
+.stair-bottom-right {
+	left:420px;
+	top:490px;
+	width:180px;
+	height:70px;
+	position:absolute;
+	background:url(../images/stair-bottom-l-r.png) 0 0 no-repeat;
+}
+
+.stair-bottom-mid-left {
+	left:180px;
+	top:510px;
+	width:72px;
+	height:50px;
+	position:absolute;
+	background:url(../images/stair-bottom-mid.png) 0 0 no-repeat;
+}
+.stair-bottom-mid-right {
+	left:348px;
+	top:510px;
+	width:72px;
+	height:50px;
+	position:absolute;
+	background:url(../images/stair-bottom-right.png) 0 0 no-repeat;
+}
+.player {
 	top:350px;
 	left:290px;
 	height:20px;
 	width:20px;
 	background:red;
 	position:absolute;
-	
-	}
+}
