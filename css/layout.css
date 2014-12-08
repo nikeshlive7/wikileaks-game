@@ -10,6 +10,7 @@
 	margin-top:50px;
     background:url(../images/background.png) 0 0 no-repeat;
 	position:relative;
+	overflow:hidden;
 }
 .left-stair {
 	left:30px;
@@ -77,11 +78,19 @@
 	position:absolute;
 	background:url(../images/stair-bottom-right.png) 0 0 no-repeat;
 }
+
 .player {
-	top:350px;
+	top:330px;
 	left:290px;
-	height:20px;
-	width:20px;
+	height:40px;
+	width:40px;
+	background:green;
+	position:absolute;
+}
+
+.opponent {
+	height:40px;
+	width:40px;
 	background:red;
 	position:absolute;
 }
