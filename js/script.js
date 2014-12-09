@@ -8,36 +8,50 @@ wiki.init();
 //main game class 
 function Wikileaks(canvas) {
 
-
+    this.gameLoopIntervalId;
     this.gameWrapper = canvas;
     var that = this;
     var gameLoopInterval = 1;
     this.player = new Player(that);
-    var opponent = new Opponent(that);
+    this.opponent = new Opponent(that);
     var counter = 0;
-    var managePlayer = 3;
-    var frequencyOfCreatingOpponent = 500;
-    var moveOpponentSpeed = 5;
+    var managePlayer = 1;
+    var frequencyOfCreatingOpponent = 180;
+    var moveOpponentSpeed = 2;
+    var time = new Date().getTime();
     var that = this;
     this.init = function() {
 
 
         that.player.init();
-
-        setInterval(that.gameLoop, gameLoopInterval);
+        that.gameLoop();
+        //that.gameLoopIntervalId=setInterval(that.gameLoop, gameLoopInterval);
     }
 
-    this.gameLoop = function() {
-        counter++;
 
+
+    this.gameLoop = function() {
+        that.gameLoopIntervalId = window.requestAnimationFrame(that.gameLoop);
+        counter++;
+        var now = new Date().getTime();
+        //dt = now - (time || now);
+        //time = now;
+        if (counter % 60 == 0) {
+            //window.cancelAnimationFrame(that.gameLoopIntervalId);
+
+            //console.log(now - time);
+            time = now;
+        }
+
+        //console.log(counter);
         if (counter % frequencyOfCreatingOpponent == 0) {
             //create new opponent
-            opponent.createOpponent();
+           that.opponent.createOpponent();
         }
 
         if (counter % moveOpponentSpeed == 0) {
             // move opponent
-            opponent.manageOpponent();
+            that.opponent.manageOpponent();
         }
 
         if (counter % managePlayer == 0) {
@@ -49,11 +63,12 @@ function Wikileaks(canvas) {
 }
 
 
-//player class
+//player class....................................................................
 function Player(wikileakes) {
     var counterMovePlayer = 0;
     var currentStair = 0;
     this.playerEl;
+	this.goLeft = 1;
     this.wiki = wikileakes;
     var playerElLeft;
     var playerElTop;
@@ -66,6 +81,7 @@ function Player(wikileakes) {
     var moveDownPlayer = 0;
     this.stairs = that.wiki.gameWrapper.getElementsByTagName("div");
     var dc;
+	var bullet=new Bullet(that);;
     this.init = function() {
         document.onkeydown = that.moveplayerEl;
         that.playerEl = document.createElement('div');
@@ -142,7 +158,9 @@ function Player(wikileakes) {
         if (moveDownPlayer == 1) {
             that.moveDown();
         }
-
+		
+		bullet.updateBullet();
+		
 
     }
 
@@ -150,9 +168,11 @@ function Player(wikileakes) {
         //console.log(e.keyCode);
         switch (e.keyCode) {
             case 37:
+				that.goLeft = 1;
                 that.moveLeft();
                 break;
             case 39:
+				that.goLeft = 0;
                 that.moveRight();
                 break;
             case 38:
@@ -164,6 +184,13 @@ function Player(wikileakes) {
                 break;
             case 40:
                 break;
+			case 32: 
+					
+					//(bullets).push(e);
+					bullet.createBullet();
+					//bullet_counter =0;
+					
+				break;
 
         }
     }
@@ -206,13 +233,20 @@ function Opponent(wikileakes) {
         opponentElTop[noOfOpponent] = that.opponentEl[noOfOpponent].offsetTop;
         moveDownOpponent[noOfOpponent] = 1;
         moveOpponentLeftRight[noOfOpponent] = 0;
-        if (noOfOpponent % 2 == 0) {
+
+        if (getRandom() == 1) {
             goLeft[noOfOpponent] = 0;
         } else {
             goLeft[noOfOpponent] = 1;
         }
 
         noOfOpponent++;
+
+    }
+
+    function getRandom() {
+
+        return Math.round(Math.random() * 2);
 
     }
 
@@ -241,7 +275,9 @@ function Opponent(wikileakes) {
 
                 //console.log(wiki.player.playerEl);
                 if (dc.collisionPlayerOpponent(wiki.player.playerEl, that.opponentEl[i])) {
-                    console.log("thokyo....");
+                    wiki.gameWrapper.removeChild(wiki.player.playerEl);
+                    window.cancelAnimationFrame(wiki.gameLoopIntervalId);
+                    //clearInterval(wiki.gameLoopIntervalId);
                 }
             }
         }
@@ -270,6 +306,11 @@ function Opponent(wikileakes) {
 
                 }
             }
+            if (dc.collisionPlayerOpponent(wiki.player.playerEl, that.opponentEl[i])) {
+                wiki.gameWrapper.removeChild(wiki.player.playerEl);
+                window.cancelAnimationFrame(wiki.gameLoopIntervalId);
+                //clearInterval(wiki.gameLoopIntervalId);
+            }
         }
 
     }
@@ -281,6 +322,7 @@ function Opponent(wikileakes) {
 
         that.moveDown();
         that.moveLeftRight();
+
 
     }
 
@@ -307,11 +349,11 @@ function DetectCollision(player) {
         var opponent_y = opponent.offsetTop;
         var player_x = playerEl.offsetLeft;
         var player_y = playerEl.offsetTop;
-        //console.log(player_x, opponent_x, player_y, opponent_y);
-        if (((opponent_x + 40) > player_x		//right edge of e > left edge of car
-                && opponent_x <= (opponent + 40))	//left edge of e < right edge of car
-                || ((opponent_y + 40) > player_y	//bottom edge of e > top edge of car
-                        && opponent_y <= (player_y + 40)))	//top edge of e > bottom edge of car)
+        //console.log(player_x, opponent_x+ 40, player_y, opponent_y);
+        if ((opponent_x + 40) >= player_x		//right edge of opponent > left edge of player
+                && (opponent_x - 40) <= player_x	//left edge of opponent < right edge of player
+                && (opponent_y + 40) >= player_y	//bottom edge of opponent > top edge of player
+                && (opponent_y - 40) <= player_y)	//top edge of opponent > bottom edge of player)
         {
             return true;
         }
@@ -319,7 +361,7 @@ function DetectCollision(player) {
 
 
     this.onMovingDown = function() {
-        for (var i = 0; i < stairs.length - 1; i++) {
+        for (var i = 0; i < 8; i++) {
             //console.log(stairs[i].offsetWidth);
 
             if (stairs[i].offsetTop == playerEl.offsetTop + playerEl.offsetWidth && stairs[i].offsetLeft < playerEl.offsetLeft + playerEl.offsetWidth && playerEl.offsetLeft < (stairs[i].offsetLeft + stairs[i].offsetWidth)) {
@@ -346,7 +388,7 @@ function DetectCollision(player) {
     //moving opponent down
     this.onMovingDownOpponent = function(playerEl, opponent) {
         var playerEl = playerEl;
-        for (var i = 0; i < stairs.length - 1; i++) {
+        for (var i = 0; i < 8; i++) {
             //console.log(stairs[i].offsetWidth);
 
             if (stairs[i].offsetTop == playerEl.offsetTop + playerEl.offsetWidth && stairs[i].offsetLeft < playerEl.offsetLeft + playerEl.offsetWidth && playerEl.offsetLeft < (stairs[i].offsetLeft + stairs[i].offsetWidth)) {
@@ -385,7 +427,7 @@ function DetectCollision(player) {
     this.onMovingLeftRight = function() {
         //console.log(playerEl.offsetLeft, stairs[currentStair].offsetLeft + stairs[currentStair].offsetWidth - 15);
         if (stairs[currentStair].offsetTop == playerEl.offsetTop + playerEl.offsetWidth && (stairs[currentStair].offsetLeft > playerEl.offsetLeft + playerEl.offsetWidth || playerEl.offsetLeft > stairs[currentStair].offsetLeft + stairs[currentStair].offsetWidth)) {
-            console.log("inside left right");
+            //console.log("inside left right");
             onStair = 0;
             return true;
 
@@ -394,6 +436,26 @@ function DetectCollision(player) {
             //moveDownInterval = setInterval(that.moveDown, 20);
         }
     }
+	this.colisionOpponentBullet=function(bullet,opponents){
+		//console.log(opponents.leng);
+			for(var i = 0;i<opponents.length;i++){
+					var bullet = bullet;
+        			var opponent_x = opponents[i].offsetLeft;
+       				var opponent_y = opponents[i].offsetTop;
+       			 	var bullet_x = bullet.offsetLeft;
+        			var bullet_y = bullet.offsetTop;
+       //console.log(bullet_x, opponent_x+ 40, bullet_y, opponent_y);
+        if ((opponent_x + 40) >= bullet_x		//right edge of opponent > left edge of player
+                && (opponent_x - 40) <= bullet_x	//left edge of opponent < right edge of player
+                && (opponent_y + 40) >= bullet_y	//bottom edge of opponent > top edge of player
+                && (opponent_y - 40) <= bullet_y)	//top edge of opponent > bottom edge of player)
+        {
+            
+			return i;
+        }
+				}
+		
+		}
 
 
 
@@ -424,8 +486,7 @@ function DetectCollisions(player) {
         }
     }
 
-
-
+	
     this.outOfObject = function(movingObject, nonMovingObject) {
         //console.log(playerEl.offsetLeft, stairs[currentStair].offsetLeft + stairs[currentStair].offsetWidth - 15);
         if (nonMovingObject.offsetTop == movingObject.offsetTop + movingObject.offsetWidth && (nonMovingObject.offsetLeft > movingObject.offsetLeft + movingObject.offsetWidth || movingObject.offsetLeft > nonMovingObject.offsetLeft + nonMovingObject.offsetWidth)) {
@@ -443,4 +504,81 @@ function DetectCollisions(player) {
 
 }
 
+//bullets class 
+
+function Bullet(player)
+{
+    var that = this;
+	var dc = new DetectCollision(that);
+    this.bullet_x=[];
+    this.bullet_y=[];
+    this.bullets=[];
+    this.dx = 10;
+	this.noOfBullets=0;
+	this.goLeft = [];
+	var collideOpponent;
+
+    this.createBullet = function() {
+		//console.log(player.wiki);
+        that.bullets[that.noOfBullets] = document.createElement('div');
+        that.bullets[that.noOfBullets].className = "bullets"; //style
+		that.goLeft[that.noOfBullets] = player.goLeft;
+		if(player.goLeft==1){
+        	that.bullet_x[that.noOfBullets] = (player.playerEl.offsetLeft)-10;
+		}
+		else{
+			that.bullet_x[that.noOfBullets] = (player.playerEl.offsetLeft)+40;
+		}
+        that.bullet_y[that.noOfBullets] = player.playerEl.offsetTop+15;
+        that.bullets[that.noOfBullets].style.left = (that.bullet_x[that.noOfBullets]) + "px";
+        that.bullets[that.noOfBullets].style.top = (that.bullet_y[that.noOfBullets]) + "px";
+        player.wiki.gameWrapper.appendChild(that.bullets[that.noOfBullets]);
+		
+		//console.log(that.bullets[noOfBullets]);
+		that.noOfBullets++;
+    }
+	
+    this.updateBullet = function() {
+		
+		for(var i=0;i<that.noOfBullets;i++){
+			
+			//console.log(player.dc);
+			//console.log(player.wiki.opponent.opponentEl);
+			var bulletLeft =  that.bullet_x[i];
+			var t = 0;
+			//console.log(player.goLeft);
+			if(that.goLeft[i] == 1){
+         		 t = bulletLeft-that.dx;
+			}
+			else{
+				t = bulletLeft + that.dx;
+				
+			}
+        that.bullet_x[i] = t;
+		
+        that.bullets[i].style.left = bulletLeft + "px";
+		collideOpponent = dc.colisionOpponentBullet(that.bullets[i],player.wiki.opponent.opponentEl);
+		
+		if(collideOpponent+1)
+			{
+				console.log(collideOpponent);
+				player.wiki.gameWrapper.removeChild(player.wiki.opponent.opponentEl[collideOpponent]);
+				player.wiki.opponent.opponentEl.splice(collideOpponent,i);
+				}
+		if(t>550 || t<40){
+			
+			player.wiki.gameWrapper.removeChild(that.bullets[i]);
+			that.bullets.splice(i,1);
+			that.noOfBullets--;
+			}
+			
+		
+			
+		
+		}
+    }
+    this.deleteBullet = function() {
+        player.wiki.gameWrapper.removeChild(that.that.bullets);
+    }
+}
 

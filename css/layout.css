@@ -12,6 +12,8 @@
 	position:relative;
 	overflow:hidden;
 }
+
+/*main game frame*/
 .left-stair {
 	left:30px;
 	width:134px;
@@ -79,6 +81,8 @@
 	background:url(../images/stair-bottom-right.png) 0 0 no-repeat;
 }
 
+/*player and opponent*/
+
 .player {
 	top:330px;
 	left:290px;
@@ -93,4 +97,14 @@
 	width:40px;
 	background:red;
 	position:absolute;
+}
+
+.bullets{
+position:absolute;
+z-index:1;
+width:10px;
+height:10px;
+background:yellow;
+border-top-left-radius:5px;
+border-bottom-left-radius:5px;
 }
