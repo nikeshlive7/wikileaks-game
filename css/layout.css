@@ -2,109 +2,80 @@
 /* CSS Document */
 
 
-
+.main-container{
+	background:green;
+	width:600px;
+	margin:0 auto;
+	margin-top:50px;
+	}
 .canvas {
 	width:600px;
 	height:570px;
-	margin:0 auto;
-	margin-top:50px;
-    background:url(../images/background.png) 0 0 no-repeat;
+	background:url(../images/background.png) 0 0 no-repeat;
 	position:relative;
 	overflow:hidden;
 }
 
 /*main game frame*/
 .left-stair {
-	left:30px;
-	width:134px;
-	height:28px;
 	position:absolute;
-	top:265px;
 	background:url(../images/stair-l.png) 0 0 no-repeat;
 }
 .right-stair {
-	width:136px;
-	height:28px;
 	position:absolute;
-	top:265px;
-	right:29px;
 	background:url(../images/stair-r.png) 0 0 no-repeat;
 }
 .up-stair {
-	top:160px;
-	left:192px;
-	width:220px;
-	height:28px;
 	position:absolute;
 	background:url(../images/stait-up-down.png) 0 0 no-repeat;
 }
 .down-star {
-	top:370px;
-	left:192px;
-	width:220px;
-	height:28px;
 	position:absolute;
 	background:url(../images/stait-up-down.png) 0 0 no-repeat;
 }
-
 .stair-bottom-left {
-	left:0px;
-	top:490px;
-	width:180px;
-	height:70px;
 	position:absolute;
 	background:url(../images/stair-bottom-l-r.png) 0 0 no-repeat;
 }
 .stair-bottom-right {
-	left:420px;
-	top:490px;
-	width:180px;
-	height:70px;
 	position:absolute;
 	background:url(../images/stair-bottom-l-r.png) 0 0 no-repeat;
 }
-
 .stair-bottom-mid-left {
-	left:180px;
-	top:510px;
-	width:72px;
-	height:50px;
 	position:absolute;
 	background:url(../images/stair-bottom-mid.png) 0 0 no-repeat;
 }
 .stair-bottom-mid-right {
-	left:348px;
-	top:510px;
-	width:72px;
-	height:50px;
 	position:absolute;
 	background:url(../images/stair-bottom-right.png) 0 0 no-repeat;
 }
 
-/*player and opponent*/
+/*player and opponent bullets and coin*/
 
 .player {
-	top:330px;
-	left:290px;
-	height:40px;
-	width:40px;
+
 	background:green;
 	position:absolute;
 }
-
 .opponent {
 	height:40px;
 	width:40px;
 	background:red;
 	position:absolute;
 }
-
-.bullets{
-position:absolute;
-z-index:1;
-width:10px;
-height:10px;
-background:yellow;
-border-top-left-radius:5px;
-border-bottom-left-radius:5px;
+.bullets {
+	position:absolute;
+	z-index:1;
+	width:10px;
+	height:10px;
+	background:yellow;
+	border-top-left-radius:5px;
+	border-bottom-left-radius:5px;
+}
+.coins {
+	width:15px;
+	height:15px;
+	border-radius:10px;
+	background:#F93;
+	position:absolute;
 }
