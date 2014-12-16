@@ -1,21 +1,37 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
-<head>
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-<title>wikileaks</title>
-<link type="text/css" rel="stylesheet" href="css/reset.css"  />
-<link type="text/css" rel="stylesheet" href="css/layout.css" />
-</head>
-<body>
-<div class="main-container">
-  <div class="canvas" id="canvas"></div>
-</div>
-<script type="text/javascript" src="js/Player.js"></script> 
-<script type="text/javascript" src="js/DetectCollision.js"></script> 
-<script type="text/javascript" src="js/Opponent.js"></script> 
-<script type="text/javascript" src="js/Bullet.js"></script> 
-<script type="text/javascript" src="js/Coin.js"></script> 
-<script type="text/javascript" src="js/stairs.js"></script> 
-<script type="text/javascript" src="js/mainGameLoop.js"></script>
-</body>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <title>wikileaks</title>
+        <link type="text/css" rel="stylesheet" href="css/reset.css"  />
+        <link type="text/css" rel="stylesheet" href="css/layout.css" />
+    </head>
+    <body>
+        <div class="main-wrapper">
+            <div class="canvas" id="canvas"> <span id="score"> <br />
+                </span>
+                <div class="welcomeScreen-wrapper" id="welcomeScreen"> <span id="gameName"> The <br />
+                        Wikileaks <br />
+                        Game </span>
+                    <span id="play"></span>
+                    <span id="highScore"></span>
+                    <span id="developer">-Bhola Kaji Niroula</span>
+                </div>
+                <div class="game-over-screen" id="gameOverScreen"> Game Over
+                    <hr />
+                    <span id="tryAgain">Try Again</span> 
+                    <span id="submitScore">Submit Score</span> 
+                    <span id="mainMenu">Main Menu</span> </div>
+
+            </div>
+        </div>
+        <script type="text/javascript" src="js/Player.js"></script> 
+        <script type="text/javascript" src="js/DetectCollision.js"></script> 
+        <script type="text/javascript" src="js/Opponent.js"></script> 
+        <script type="text/javascript" src="js/Bullet.js"></script> 
+        <script type="text/javascript" src="js/Coin.js"></script> 
+        <script type="text/javascript" src="js/stairs.js"></script> 
+        <script type="text/javascript" src="js/audio.js"></script> 
+        <script type="text/javascript" src="js/mainGameLoop.js"></script>
+    </body>
 </html>

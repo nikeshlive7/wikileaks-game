@@ -14,7 +14,7 @@ function Stairs(gameWrapper)
     this.height = 0;
     this.stair = 0;
 
-    this.init = function(className, top, left, width, height) {
+    this.init = function(className, top, left, width, height, background) {
 
         that.className = className;
         that.top = top;
@@ -28,18 +28,15 @@ function Stairs(gameWrapper)
         that.stair.style.left = that.left + "px";
         that.stair.style.width = that.width + "px";
         that.stair.style.height = that.height + "px";
+        //that.stair.style.background = background;
+        that.stair.style.position = "absolute";
         gameWrapper.appendChild(that.stair);
 
+    };
 
+    this.deleteStair = function() {
+        gameWrapper.removeChild(that.stair);
 
-
-        //return that.stair;
-    }
-
-
-    this.deleteStair = function(stair) {
-        gameWrapper.removeChild(stair);
-
-    }
+    };
 }
 

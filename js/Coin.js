@@ -11,17 +11,17 @@ function Coin(wiki)
     var dc = new DetectCollision();
     this.top;
     this.left;
-    this.height = 15;
-    this.width = 15;
+    this.height = 20;
+    this.width = 20;
     this.age;
     this.coinEl;
 
-    var collideOpponent;
+    var collidePlayer;
 
     this.init = function() {
 
         that.coinEl = document.createElement('div');
-        that.coinEl.className = "coins"; //style
+        that.coinEl.className = "coins";
         that.left = 30 + getRandomInt(1, 520);
         that.top = getRandomInt(1, 5) * 100;
         that.age = 180;
@@ -31,40 +31,31 @@ function Coin(wiki)
         that.coinEl.style.width = that.width + "px";
         wiki.gameWrapper.appendChild(that.coinEl);
 
-
-
-    }
+    };
 
     function getRandomInt(min, max) {
         return Math.floor(Math.random() * (max - min)) + min;
     }
 
-
     this.updateCoin = function() {
 
-
-
-
         that.age--;
-        collideOpponent = dc.colisionPlayerCoin(wiki.player, that);
+        collidePlayer = dc.collisionRect(wiki.player, that);
 
-        if ((collideOpponent + 1) || that.age <= 0)
-        {
+        if (that.age <= 0){
             return "clearCoin";
         }
+		
+		if(collidePlayer){
+			return "coinCollected";
+		}
 
-
-
-
-
-    }
+    };
 
     this.deleteCoin = function() {
 
         wiki.gameWrapper.removeChild(that.coinEl);
 
-
-
-    }
+    };
 }
 

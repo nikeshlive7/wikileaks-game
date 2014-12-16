@@ -4,21 +4,21 @@
 
 //opponent class ---------------------------------------------------------------------------------
 function Opponent(wikileakes) {
-    var that = this;
-    var dc = new DetectCollision();
-
+    
     this.age = 3;
     this.opponentEl;
     this.wiki = wikileakes;
     this.width = 30;
     this.height = 50;
-    this.left = 250;
+    this.left = 285;
     this.top = -40;
     this.currentStair = 0;
     this.moveDownOpponent = true;
     this.goLeft = false;
 
-
+	var that = this;
+    var dc = new DetectCollision();
+	var isWalk = true;
 
     this.init = function() {
 
@@ -34,11 +34,12 @@ function Opponent(wikileakes) {
         that.moveDownOpponent = 1;
         if (getRandom() == 1) {
             that.goLeft = false;
+			that.opponentEl.style.backgroundPosition = "-80px 0px";
         } else {
             that.goLeft = true;
-        }
+			        }
 
-    }
+    };
 
     function getRandom() {
 
@@ -50,44 +51,54 @@ function Opponent(wikileakes) {
 
     this.moveLeftRight = function() {
 
-
-
         if (that.goLeft == true) {
-            that.left -= 5;
-            that.opponentEl.style.left = that.left + "px";
+			
+			if(isWalk){
+			that.opponentEl.style.backgroundPosition = "-40px 0px";
+			that.moveUp();
+			isWalk = false;
+			}else{
+				
+				that.opponentEl.style.backgroundPosition = "0px 0px";
+				that.moveDown();
+				isWalk = true;
+				}
+            that.left -= 10;
             if (that.left < 40)
                 that.goLeft = false;
         } else {
-
-            that.left += 5;
-            that.opponentEl.style.left = that.left + "px";
-            if (that.left > 520)
+			if(isWalk){
+				that.opponentEl.style.backgroundPosition = "-120px 0px";
+				that.moveUp();
+				isWalk =false;
+				}else{
+					that.opponentEl.style.backgroundPosition = "-80px 0px";
+					that.moveDown();
+					isWalk=true;
+					}
+			
+            that.left += 10;
+            if (that.left > 520) {
                 that.goLeft = true;
-
+            }
         }
+        that.opponentEl.style.left = that.left + "px";
 
-
-
-
-
-    }
-
-
-
+    };
 
     this.moveDown = function() {
 
         that.top += 5;
         that.opponentEl.style.top = that.top + "px";
 
+    };
+	
+	this.moveUp = function() {
 
+        that.top -= 5;
+        that.opponentEl.style.top = that.top + "px";
 
-
-    }
-
-
-
-
+    };
 
     this.updateOpponent = function() {
 
@@ -97,49 +108,36 @@ function Opponent(wikileakes) {
             that.moveLeftRight();
         }
 
-
-    }
+    };
 
     this.detectCollisions = function() {
-        if (dc.onMovingLeftRightOpponent(that, wiki.stairs)) {
-
-
+        if (dc.onMovingLeftRight(that, wiki.stairs)) {
             that.moveDownOpponent = true;
         }
 
-
-
-
-        if (dc.onMovingDownOpponent(that, wiki.stairs)) {
-
-
+        if (dc.onMovingDown(that, wiki.stairs)) {
             that.moveDownOpponent = false;
-
         }
 
-        if (dc.collisionPlayerOpponent(wiki.player, that)) {
-
+        if (dc.collisionRect(wiki.player, that)) {
             return "gameOver";
-
         }
 
         if (that.top > 550) {
-
             return "clearOpponent";
-
         }
 
-    }
-
+    };
 
     this.deleteOpponent = function() {
         wiki.gameWrapper.removeChild(that.opponentEl);
-    }
+    };
 
     this.destroyAnimation = function() {
 
-    }
-
+    };
+	
+	
 
 }
 

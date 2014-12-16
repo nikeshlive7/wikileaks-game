@@ -18,11 +18,11 @@ function Bullet(wiki)
     this.goLeft;
     var collideOpponent;
     var ageOpponent = 0;
-	var flagCollide = 0;
+
     this.init = function() {
 
         that.bulletEl = document.createElement('div');
-        that.bulletEl.className = "bullets"; //style
+        that.bulletEl.className = "bullets";
         that.bulletEl.style.height = that.height + "px";
         that.bulletEl.style.width = that.width + "px";
         that.goLeft = wiki.player.goLeft;
@@ -34,21 +34,14 @@ function Bullet(wiki)
             that.left = wiki.player.left + wiki.player.width;
         }
 
-        that.top = wiki.player.top + wiki.player.height / 2 - that.height / 2;
+        that.top = wiki.player.top + wiki.player.height / 2 - that.height / 2 +13;
         that.bulletEl.style.left = that.left + "px";
         that.bulletEl.style.top = that.top + "px";
         wiki.gameWrapper.appendChild(that.bulletEl);
 
-
-
-    }
+    };
 
     this.updateBullet = function() {
-
-
-
-
-
 
         if (that.goLeft == true) {
             that.left -= that.dx;
@@ -58,29 +51,25 @@ function Bullet(wiki)
 
         }
 
-
         that.bulletEl.style.left = that.left + "px";
 
-
-    }
+    };
 
     this.detectCollisionsBullet = function() {
         ageOpponent = 0;
-        collideOpponent = dc.colisionOpponentBullet(that, wiki.opponents);
+        collideOpponent = dc.colisionRectAndRectarray(that, wiki.opponents);
 
         if (collideOpponent + 1)
         {
-			ageOpponent = wiki.opponents[collideOpponent].age
-			
+            ageOpponent = wiki.opponents[collideOpponent].age - 1;
+            wiki.opponents[collideOpponent].age = ageOpponent;
+
             if (ageOpponent == 0) {
-                return ["killOpponent",collideOpponent];
+                return ["killOpponent", collideOpponent];
 
             }
-			if(flagCollide%wiki.opponents[0].width==0){
-				  
-            	 wiki.opponents[collideOpponent].age = ageOpponent-1;
-			}
-           	flagCollide++;
+            return ["clearBullet"];
+
         }
 
         if (that.left > 550 || that.left < 40) {
@@ -89,11 +78,11 @@ function Bullet(wiki)
         }
         return false;
 
-    }
+    };
 
     this.deleteBullet = function() {
         wiki.gameWrapper.removeChild(that.bulletEl);
 
-    }
+    };
 }
 
