@@ -31,15 +31,16 @@ function Wikileaks(canvas) {
     this.gameWrapper = canvas;
     var that = this;
     var gameLoopInterval = 1;
-    
+
     // Array of all objects created in this game
     this.stairs = [];
     this.opponents = [];
     this.bullets = [];
     this.coins = [];
     this.player = new Player(that);
-    
+
     var score = 0;
+    this.scoreUpdate = 0;
     var audio = new Audio();
     var counter = 0;
     var updateBullet = 1;
@@ -87,6 +88,7 @@ function Wikileaks(canvas) {
         that.gameLoopIntervalId = window.requestAnimationFrame(that.gameLoop);
         counter++;
         scoreDisplay.innerHTML = "score :- " + score;
+        that.scoreUpdate = score;
         //console.log(that.frameRateFx());
         if (counter % managePlayer == 0) {
             //move player
@@ -287,7 +289,7 @@ function Wikileaks(canvas) {
                 if (!isGameOver) {
                     that.gameOver();
                 } else {
-                    mainMenu();
+                    mainMenuFxn();
 
                 }
                 break;
@@ -330,8 +332,15 @@ function trayAgainFxn() {
 }
 
 function submitScoreFxn() {
-
+    var submitScr = new Ajax();
+    submitScr.doCompletion(wiki.scoreUpdate, function() {
+        alert("score submited!!!")
+    });
 }
 function highScoreFxn() {
+    var submitScr = new Ajax();
+    submitScr.doCompletion(wiki.scoreUpdate, function(msg) {
+        alert("Current high score is=" + msg)
+    });
 
 }
