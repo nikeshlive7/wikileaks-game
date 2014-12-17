@@ -14,7 +14,7 @@ function Player(wikileakes) {
     this.height = 50;
     this.top = 320;
     this.left = 290;
-	
+
 
     var isJumping = 0;
     var jump = 0;
@@ -22,7 +22,7 @@ function Player(wikileakes) {
     var dc = new DetectCollision();
 
     this.init = function() {
-       
+
         that.top = wiki.stairs[that.currentStair].top - that.height;
         that.left = wiki.stairs[that.currentStair].left + wiki.stairs[that.currentStair].width / 2 - that.width / 2;
         that.playerEl = document.createElement('div');
@@ -36,9 +36,9 @@ function Player(wikileakes) {
     };
 
     this.moveLeft = function() {
-	
-			that.playerEl.style.backgroundPosition="0px 0px";
-			
+
+        that.playerEl.style.backgroundPosition = "0px 0px";
+
         if (that.left > 40) {
             that.left -= 15;
             that.playerEl.style.left = that.left + "px";
@@ -48,7 +48,7 @@ function Player(wikileakes) {
     };
 
     this.moveRight = function() {
-		that.playerEl.style.backgroundPosition="-150px 0px";
+        that.playerEl.style.backgroundPosition = "-150px 0px";
         if (that.left < 520) {
             that.left += 15;
             that.playerEl.style.left = that.left + "px";
@@ -77,12 +77,12 @@ function Player(wikileakes) {
             jump += 5;
             that.moveUp();
         }
-		
-		if(that.goLeft==true){
-			that.playerEl.style.backgroundPosition="-100px 0px";
-			}else{
-				that.playerEl.style.backgroundPosition="-250px 0px";
-				}
+
+        if (that.goLeft == true) {
+            that.playerEl.style.backgroundPosition = "-100px 0px";
+        } else {
+            that.playerEl.style.backgroundPosition = "-250px 0px";
+        }
 
     };
 
@@ -125,23 +125,23 @@ function Player(wikileakes) {
     this.deletePlayer = function() {
         wiki.gameWrapper.removeChild(that.playerEl);
         window.cancelAnimationFrame(that.wiki.gameLoopIntervalId);
-		playerAlive = false;
+        playerAlive = false;
     };
 
     this.distroyAnimation = function() {
 
         wiki.gameWrapper.removeChild(that.playerEl);
         window.cancelAnimationFrame(that.wiki.gameLoopIntervalId);
-	
-    };
-	
-	this.jumpKeyPressed = function(){
-			if (isJumping == 0) {
-                    isJumping = 1;
-                }
-		}
 
-    
+    };
+
+    this.jumpKeyPressed = function() {
+        if (isJumping == 0) {
+            isJumping = 1;
+        }
+    }
+
+
 }
 
 

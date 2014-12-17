@@ -34,7 +34,7 @@ function Bullet(wiki)
             that.left = wiki.player.left + wiki.player.width;
         }
 
-        that.top = wiki.player.top + wiki.player.height / 2 - that.height / 2 +13;
+        that.top = wiki.player.top + wiki.player.height / 2 - that.height / 2 + 13;
         that.bulletEl.style.left = that.left + "px";
         that.bulletEl.style.top = that.top + "px";
         wiki.gameWrapper.appendChild(that.bulletEl);

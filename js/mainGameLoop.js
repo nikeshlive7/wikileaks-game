@@ -31,17 +31,14 @@ function Wikileaks(canvas) {
     this.gameWrapper = canvas;
     var that = this;
     var gameLoopInterval = 1;
-
+    
+    // Array of all objects created in this game
     this.stairs = [];
     this.opponents = [];
     this.bullets = [];
     this.coins = [];
-
     this.player = new Player(that);
-    this.opponent = new Opponent(that);
-    //this.coins = new Coin(that);
-    this.bullet = new Bullet(that);
-
+    
     var score = 0;
     var audio = new Audio();
     var counter = 0;
@@ -50,7 +47,7 @@ function Wikileaks(canvas) {
     var createCoin = 180;
     var updateCoin = 1;
     var frequencyOfCreatingOpponent = 180;
-    var moveOpponentSpeed = 4;
+    var moveOpponentSpeed = 2;
     var frameRate = 0;
     var isGameOver = true;
     var time = new Date().getTime();
@@ -80,7 +77,7 @@ function Wikileaks(canvas) {
 
         that.player.init();
         that.gameLoop();
-		 
+
     }
 
 

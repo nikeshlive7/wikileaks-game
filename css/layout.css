@@ -11,7 +11,7 @@
 	height:570px;
 	position:relative;
 	overflow:hidden;
-	background:#000;
+	background:url(../images/background.png) 0 0 no-repeat;
 	opacity:0.8;
 }
 
@@ -19,8 +19,8 @@
 	position:absolute;
 	width:600px;
 	height:570px;
-	background:#000;
-	opacity:0.8;
+	background:#FFF;
+	opacity:0.6;
 	z-index:10;
 	
 }
@@ -30,8 +30,8 @@
 	position:absolute;
 	height:130px;
 	width:365px;
-	left:125px;
-	background:blue;
+	left:170px;
+	background:url(../images/game_title.png) 0 0 no-repeat;
 	}
 #play{
 	top:300px;
@@ -39,23 +39,16 @@
 	height:50px;
 	width:100px;
 	position:absolute;
-	background:blue;
+	background:url(../images/play.png) 0 0 no-repeat;
 	}
-#play{
-	top:300px;
-	left:265px;
-	height:50px;
-	width:100px;
-	position:absolute;
-	background:blue;
-	}
+
 #highScore{
 	top:400px;
 	left:265px;
 	height:50px;
 	width:100px;
 	position:absolute;
-	background:blue;
+	background:url(../images/high_score.png) 0 0 no-repeat;
 	}
 #developer{
 	bottom:5px;
@@ -75,7 +68,6 @@
 	height:200px;
 	top:165px;
 	color:#F00;
-	font-size:50px;
 	background:#000;
 	text-align:center;
 	opacity:0.8;
@@ -84,8 +76,13 @@
 	
 }
 
-.game-over-screen span{
-	font-size:15px;
+
+#gameOver{
+	left:100px;
+	position:absolute;
+	height:45px;
+	width:370px;
+	background:url(../images/game_over.png) 0 0 no-repeat;
 	}
 
 #score{
@@ -106,7 +103,7 @@
 	position:absolute;
 	height:75px;
 	width:205px;
-	background:white;
+	background:url(../images/try_again.png) 0 0 no-repeat;
 	}
 #submitScore{
 	left:280px;
@@ -114,7 +111,7 @@
 	position:absolute;
 	height:30px;
 	width:205px;
-	background:white;
+	background:url(../images/submit_score.png) 0 0 no-repeat;
 	}
 	
 #mainMenu{
@@ -123,7 +120,7 @@
 	position:absolute;
 	height:30px;
 	width:205px;
-	background:white;
+	background:url(../images/main_menu.png) 0 0 no-repeat;
 	}
 	
 /*main game frame*/
@@ -175,8 +172,8 @@
 	position:absolute;
 	z-index:1;
 	background:yellow;
-	border-top-left-radius:5px;
-	border-bottom-left-radius:5px;
+	border-radius:10px;
+	
 }
 .coins {
 	border-radius:10px;

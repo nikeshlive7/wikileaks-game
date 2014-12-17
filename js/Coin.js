@@ -42,13 +42,13 @@ function Coin(wiki)
         that.age--;
         collidePlayer = dc.collisionRect(wiki.player, that);
 
-        if (that.age <= 0){
+        if (that.age <= 0) {
             return "clearCoin";
         }
-		
-		if(collidePlayer){
-			return "coinCollected";
-		}
+
+        if (collidePlayer) {
+            return "coinCollected";
+        }
 
     };
 
